@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import Sidebar from "./Sidebar/Sidebar";
 import DrawMap from "./Maps/DrawMap";
-import './index.css';
-
+import Sidebar from "./Sidebar/Sidebar";
 
 const App: React.FC = () => {
   const [featureCount, setFeatureCount] = useState({
@@ -11,14 +9,21 @@ const App: React.FC = () => {
     polygons: 0,
   });
 
-  return (
-    <div className="flex h-screen bg-gray-900 text-white">
-      {/* Sidebar */}
-      <Sidebar featureCount={featureCount} />
+  const [selectedItems, setSelectedItems] = useState({
+    points: true,
+    lines: true,
+    polygons: true,
+  });
 
-      {/* Map */}
+  return (
+    <div className="flex w-full h-screen">
+      <Sidebar
+        featureCount={featureCount}
+        selectedItems={selectedItems}
+        setSelectedItems={setSelectedItems}
+      />
       <div className="flex-1">
-        <DrawMap setFeatureCount={setFeatureCount} />
+        <DrawMap setFeatureCount={setFeatureCount} selectedItems={selectedItems} />
       </div>
     </div>
   );
